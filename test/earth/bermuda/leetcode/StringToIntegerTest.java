@@ -89,4 +89,33 @@ class StringToIntegerTest {
         assertEquals(expected, actual, target);
     }
 
+    @Test
+    public void can_convert_11() {
+        String target = "5034754778";
+        int actual = new StringToInteger().myAtoi(target);
+        int expected = Integer.MAX_VALUE;
+        assertEquals(expected, actual, target);
+    }
+
+    @Test
+    public void can_test_1000000() {
+        StringToInteger solution = new StringToInteger();
+        for (int i = 0; i < 1000000; i++) {
+            long target = (long) Math.pow(10d, Math.random() * 11);
+            if (Math.random() < .5) {
+                target = -target;
+            }
+            int actual = solution.myAtoi(target + "");
+            if (target > (long) Integer.MAX_VALUE) {
+                assertEquals(Integer.MAX_VALUE, actual, target + "");
+            }
+            else if (target < (long) Integer.MIN_VALUE) {
+                assertEquals(Integer.MIN_VALUE, actual, target + "");
+            }
+            else {
+                assertEquals((int) target, actual, target + "");
+            }
+        }
+    }
+
 }
