@@ -1,6 +1,5 @@
 package earth.bermuda.leetcode;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +21,7 @@ public class HappyNumberTest {
     }
 
     private static boolean validate(int n) {
-        HashSet<Integer> set = new HashSet<Integer>();
+        HashSet<Integer> set = new HashSet<>();
         while (true) {
             if (n == 1) {
                 return true;
