@@ -1,18 +1,18 @@
 package earth.bermuda.leetcode;
 
 public class MoveZeroes {
-    public void moveZeroes(int[] actual) {
-        if (actual.length == 0) {
+    public void moveZeroes(int[] nums) {
+        if (nums.length == 0) {
             return;
         }
-        int nonZeroIndex = actual[0] != 0 ? 1 : 0;
-        for (int i = 1; i < actual.length; i++) {
-            if (actual[i] != 0) {
-                actual[nonZeroIndex++] = actual[i];
+        int nonZeroIndex = nums[0] != 0 ? 1 : 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[nonZeroIndex++] = nums[i];
             }
         }
-        for (; nonZeroIndex < actual.length; nonZeroIndex++) {
-            actual[nonZeroIndex] = 0;
+        for (; nonZeroIndex < nums.length; nonZeroIndex++) {
+            nums[nonZeroIndex] = 0;
         }
     }
 }
