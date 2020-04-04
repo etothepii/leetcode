@@ -14,7 +14,7 @@ class StringToIntegerTest {
         String target = "42";
         int actual = new StringToInteger().myAtoi(target);
         int expected = 42;
-        assertEquals(actual, expected, target);
+        assertEquals(expected, actual, target);
     }
 
     @Test
@@ -22,7 +22,7 @@ class StringToIntegerTest {
         String target = "   -42";
         int actual = new StringToInteger().myAtoi(target);
         int expected = -42;
-        assertEquals(actual, expected, target);
+        assertEquals(expected, actual, target);
     }
 
     @Test
@@ -30,7 +30,7 @@ class StringToIntegerTest {
         String target = "4193 with words";
         int actual = new StringToInteger().myAtoi(target);
         int expected = 4193;
-        assertEquals(actual, expected, target);
+        assertEquals(expected, actual, target);
     }
 
     @Test
@@ -38,7 +38,7 @@ class StringToIntegerTest {
         String target = "words and 987";
         int actual = new StringToInteger().myAtoi(target);
         int expected = 0;
-        assertEquals(actual, expected, target);
+        assertEquals(expected, actual, target);
     }
 
     @Test
@@ -46,7 +46,7 @@ class StringToIntegerTest {
         String target = "-91283472332";
         int actual = new StringToInteger().myAtoi(target);
         int expected = Integer.MIN_VALUE;
-        assertEquals(actual, expected, target);
+        assertEquals(expected, actual, target);
     }
 
     @Test
@@ -54,7 +54,39 @@ class StringToIntegerTest {
         String target = "91283472332";
         int actual = new StringToInteger().myAtoi(target);
         int expected = Integer.MAX_VALUE;
-        assertEquals(actual, expected, target);
+        assertEquals(expected, actual, target);
+    }
+
+    @Test
+    public void can_convert_7() {
+        String target = "1a2";
+        int actual = new StringToInteger().myAtoi(target);
+        int expected = 1;
+        assertEquals(expected, actual, target);
+    }
+
+    @Test
+    public void can_convert_8() {
+        String target = "-2147483649";
+        int actual = new StringToInteger().myAtoi(target);
+        int expected = -2147483648;
+        assertEquals(expected, actual, target);
+    }
+
+    @Test
+    public void can_convert_9() {
+        String target = "2147483648";
+        int actual = new StringToInteger().myAtoi(target);
+        int expected = 2147483647;
+        assertEquals(expected, actual, target);
+    }
+
+    @Test
+    public void can_convert_10() {
+        String target = "  0000000000012345678";
+        int actual = new StringToInteger().myAtoi(target);
+        int expected = 12345678;
+        assertEquals(expected, actual, target);
     }
 
 }
