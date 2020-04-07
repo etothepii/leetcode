@@ -85,7 +85,6 @@ class GroupAnagramsTest {
         for (int i = 0; i < 10_000; i++) {
             String[] strs = getWords();
             long start = System.nanoTime();
-//            validate(strs);
             solution.groupAnagrams(strs);
             nanos += System.nanoTime() - start;
         }
