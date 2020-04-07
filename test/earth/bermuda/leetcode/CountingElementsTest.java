@@ -8,8 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CountingElementsTest {
 
-    public static int validate(int[] target) {
-        return new CountingElements().countElements(target);
+    public static int validate(int[] arr) {
+        boolean[] observed = new boolean[1001];
+        int[] count = new int[1001];
+        for (int i : arr) {
+            count[i]++;
+            observed[i] = true;
+        }
+        int total = 0;
+        for (int i = 1; i < count.length; i++) {
+            if (observed[i]) {
+                total += count[i - 1];
+            }
+        }
+        return total;
     }
 
     @Test
@@ -45,6 +57,14 @@ class CountingElementsTest {
     }
 
     @Test
+    public void can_count_elements_5() {
+        int[] target = new int[]{0, 1, 999, 1000};
+        int expected = 2;
+        int actual = new CountingElements().countElements(target);
+        assertEquals(expected, actual, Arrays.toString(target));
+    }
+
+    @Test
     public void can_run_10_000_validated_test() {
         long time = 0;
         for (int j = 0; j < 10_000; j++) {
@@ -60,7 +80,7 @@ class CountingElementsTest {
 
     @Test
     public void can_run_100_000_test() {
-        long targetTime = 1_000_000;
+        long targetTime = 600_000_000;
         long time = 0;
         for (int j = 0; j < 100_000; j++) {
             int[] target = new int[(int) (Math.random() * 1000 + 1)];

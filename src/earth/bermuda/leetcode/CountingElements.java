@@ -2,8 +2,8 @@ package earth.bermuda.leetcode;
 
 public class CountingElements {
     public int countElements(int[] arr) {
-        boolean[] observed = new boolean[1000];
-        int[] count = new int[1000];
+        boolean[] observed = new boolean[1001];
+        int[] count = new int[1001];
         for (int i : arr) {
             count[i]++;
             observed[i] = true;
