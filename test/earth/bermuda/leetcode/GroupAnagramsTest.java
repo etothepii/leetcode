@@ -80,11 +80,12 @@ class GroupAnagramsTest {
     @Test
     public void perf_test_100_000() {
         GroupAnagrams solution = new GroupAnagrams();
-        long nanos = 30_000_000;
-        long target = 1;
+        long nanos = 0;
+        long target = 30_000_000;
         for (int i = 0; i < 10_000; i++) {
             String[] strs = getWords();
             long start = System.nanoTime();
+//            validate(strs);
             solution.groupAnagrams(strs);
             nanos += System.nanoTime() - start;
         }
