@@ -20,6 +20,17 @@ class GroupAnagramsTest {
         assertEquals(toSet(expected), toSet(actual), Arrays.toString(target));
     }
 
+    @Test
+    public void can_group_anagrams_2() {
+        String[] target = new String[] { "aaa", "aab", "aba", "baa"};
+        List<List<String>> actual = new GroupAnagrams().groupAnagrams(target);
+        List<List<String>> expected = Arrays.asList(
+                Arrays.asList("baa","aba","aab"),
+                Collections.singletonList("aaa")
+        );
+        assertEquals(toSet(expected), toSet(actual), Arrays.toString(target));
+    }
+
     private static Set<Set<String>> toSet(List<List<String>> strings) {
         Set<Set<String>> sets = new HashSet<>();
         for (List<String> list : strings) {
