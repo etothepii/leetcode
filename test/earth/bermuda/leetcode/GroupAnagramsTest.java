@@ -8,6 +8,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GroupAnagramsTest {
 
+    public static List<List<String>> validate(String[] strs) {
+        HashMap<String, List<String>> strings = new HashMap<>();
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String sorted = String.copyValueOf(chars);
+            List<String> list = strings.get(sorted);
+            if (list == null) {
+                list = new ArrayList<>();
+                strings.put(sorted, list);
+            }
+            list.add(str);
+        }
+        return Arrays.asList(strings.values().toArray(new List[0]));
+    }
+
     @Test
     public void can_group_anagrams_1() {
         String[] target = new String[] { "eat", "tea", "tan", "ate", "nat", "bat" };
@@ -29,6 +45,29 @@ class GroupAnagramsTest {
                 Collections.singletonList("aaa")
         );
         assertEquals(toSet(expected), toSet(actual), Arrays.toString(target));
+    }
+
+    @Test
+    public void can_pass_10_000() {
+        GroupAnagrams solution = new GroupAnagrams();
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        for (int i = 0; i < 10_000; i++) {
+            char[] chars = new char[(int)(Math.random() * 15 + 1)];
+            for (int j = 0; j < chars.length; j++) {
+                chars[j] = alphabet[(int)(Math.random() * alphabet.length)];
+            }
+            String[] target = new String[(int)(Math.random() * 100)];
+            for (int j = 0; j < target.length; j++) {
+                char[] word = new char[(int)(Math.random() * 7)];
+                for (int k = 0; k < word.length; k++) {
+                    word[k] = chars[(int)(Math.random() * chars.length)];
+                }
+                target[j] = String.copyValueOf(word);
+            }
+            List<List<String>> actual = solution.groupAnagrams(target);
+            List<List<String>> expected = validate(target);
+            assertEquals(toSet(expected), toSet(actual), Arrays.toString(target));
+        }
     }
 
     private static Set<Set<String>> toSet(List<List<String>> strings) {
