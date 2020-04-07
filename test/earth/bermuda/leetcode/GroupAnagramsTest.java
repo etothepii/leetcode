@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GroupAnagramsTest {
 
@@ -47,27 +48,47 @@ class GroupAnagramsTest {
         assertEquals(toSet(expected), toSet(actual), Arrays.toString(target));
     }
 
+    private static char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+
+    private static String[] getWords() {
+        char[] chars = new char[(int)(Math.random() * 15 + 1)];
+        for (int j = 0; j < chars.length; j++) {
+            chars[j] = alphabet[(int)(Math.random() * alphabet.length)];
+        }
+        String[] strs = new String[(int)(Math.random() * 100)];
+        for (int j = 0; j < strs.length; j++) {
+            char[] word = new char[(int)(Math.random() * 7)];
+            for (int k = 0; k < word.length; k++) {
+                word[k] = chars[(int)(Math.random() * chars.length)];
+            }
+            strs[j] = String.copyValueOf(word);
+        }
+        return strs;
+    }
+
     @Test
     public void can_pass_10_000() {
         GroupAnagrams solution = new GroupAnagrams();
-        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         for (int i = 0; i < 10_000; i++) {
-            char[] chars = new char[(int)(Math.random() * 15 + 1)];
-            for (int j = 0; j < chars.length; j++) {
-                chars[j] = alphabet[(int)(Math.random() * alphabet.length)];
-            }
-            String[] target = new String[(int)(Math.random() * 100)];
-            for (int j = 0; j < target.length; j++) {
-                char[] word = new char[(int)(Math.random() * 7)];
-                for (int k = 0; k < word.length; k++) {
-                    word[k] = chars[(int)(Math.random() * chars.length)];
-                }
-                target[j] = String.copyValueOf(word);
-            }
+            String[] target = getWords();
             List<List<String>> actual = solution.groupAnagrams(target);
             List<List<String>> expected = validate(target);
             assertEquals(toSet(expected), toSet(actual), Arrays.toString(target));
         }
+    }
+
+    @Test
+    public void perf_test_100_000() {
+        GroupAnagrams solution = new GroupAnagrams();
+        long nanos = 30_000_000;
+        long target = 1;
+        for (int i = 0; i < 10_000; i++) {
+            String[] strs = getWords();
+            long start = System.nanoTime();
+            solution.groupAnagrams(strs);
+            nanos += System.nanoTime() - start;
+        }
+        assertTrue(nanos < target, nanos + " < " + target);
     }
 
     private static Set<Set<String>> toSet(List<List<String>> strings) {
