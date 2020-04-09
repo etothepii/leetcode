@@ -6,6 +6,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BackspaceStringCompareTest {
 
+    private static boolean oracle(String S, String T) {
+        return removeBackspaces(S).equals(removeBackspaces(T));
+    }
+
+    private static String removeBackspaces(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (c == '#') {
+                sb.setLength(Math.max(0, sb.length()));
+            }
+            else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
     @Test
     public void can_backspace_compare_1() {
         String S = "ab#c";
@@ -61,5 +78,45 @@ class BackspaceStringCompareTest {
         boolean expected = false;
         boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
         assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+    }
+
+    private static String generateSting(int len) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            sb.append("#ab".charAt((int)(Math.random() * 3)));
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void can_test_10_000() {
+        BackspaceStringCompare solution = new BackspaceStringCompare();
+        for (int i = 0; i < 10_000; i++) {
+            int random = (int)(Math.random() * 5);
+            String S = generateSting(random);
+            String T = generateSting(random + (int)(Math.random() * 2));
+            boolean expected = oracle(S, T);
+            boolean actual = solution.backspaceCompare(S, T);
+            assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+            expected = oracle(T, S);
+            actual = solution.backspaceCompare(T, S);
+            assertEquals(expected, actual, expected ? (T + " == " + S) : (T + " != " + S));
+        }
+    }
+
+    @Test
+    public void can_validate_100_000() {
+        BackspaceStringCompare solution = new BackspaceStringCompare();
+        long target = 1;
+        long taken = 0;
+        for (int i = 0; i < 100_000; i++) {
+            int random = (int)(Math.random() * 5);
+            String S = generateSting(random);
+            String T = generateSting(random + (int)(Math.random() * 2));
+            long start = System.nanoTime();
+            solution.backspaceCompare(S, T);
+            taken += System.nanoTime() - start;
+        }
+        assertTrue(taken < target, taken + "ns < " + target + "ns");
     }
 }
