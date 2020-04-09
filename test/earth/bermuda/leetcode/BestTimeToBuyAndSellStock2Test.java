@@ -77,7 +77,7 @@ class BestTimeToBuyAndSellStock2Test {
 
     @Test
     public void can_run_1_000_000_times() {
-        long target = 15_000_000;
+        long target = 25_000_000;
         BestTimeToBuyAndSellStock2 solution = new BestTimeToBuyAndSellStock2();
         long running = 0;
         for (int i = 0; i < 100_000; i++) {

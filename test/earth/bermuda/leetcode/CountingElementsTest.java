@@ -80,7 +80,7 @@ class CountingElementsTest {
 
     @Test
     public void can_run_100_000_test() {
-        long targetTime = 600_000_000;
+        long targetTime = 750_000_000;
         long time = 0;
         for (int j = 0; j < 100_000; j++) {
             int[] target = new int[(int) (Math.random() * 1000 + 1)];
