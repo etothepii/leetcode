@@ -54,4 +54,12 @@ class BackspaceStringCompareTest {
         boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
         assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
     }
+
+    @Test
+    public void can_backspace_compare_7() {
+        String S = "abc##d", T = "ad";
+        boolean expected = false;
+        boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
+        assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+    }
 }
