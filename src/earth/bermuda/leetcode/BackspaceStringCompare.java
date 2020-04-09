@@ -4,7 +4,6 @@ public class BackspaceStringCompare {
     public boolean backspaceCompare(String S, String T) {
         int s_pointer = S.length() - 1;
         int t_pointer = T.length() - 1;
-        int count = 0;
         while (true) {
             while (s_pointer >= 0 && S.charAt(s_pointer) == '#') {
                 int skip = 0;
@@ -12,7 +11,12 @@ public class BackspaceStringCompare {
                     s_pointer--;
                     skip++;
                 }
-                s_pointer -= skip;
+                for (int i = 0; i < skip; i++) {
+                    if (s_pointer >= 0 && S.charAt(s_pointer) == '#') {
+                        skip++;
+                    }
+                    s_pointer--;
+                }
             }
             while (t_pointer >= 0 && T.charAt(t_pointer) == '#') {
                 int skip = 0;
@@ -20,7 +24,12 @@ public class BackspaceStringCompare {
                     t_pointer--;
                     skip++;
                 }
-                t_pointer -= skip;
+                for (int i = 0; i < skip; i++) {
+                    if (t_pointer >= 0 && T.charAt(t_pointer) == '#') {
+                        skip++;
+                    }
+                    t_pointer--;
+                }
             }
             if (s_pointer >= 0 && t_pointer >= 0) {
                 if (S.charAt(s_pointer--) != T.charAt(t_pointer--)) {

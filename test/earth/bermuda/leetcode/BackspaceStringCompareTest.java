@@ -88,6 +88,14 @@ class BackspaceStringCompareTest {
         assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
     }
 
+    @Test
+    public void can_backspace_compare_9() {
+        String S = "####", T = "a#b##";
+        boolean expected = true;
+        boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
+        assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+    }
+
     private static String generateSting(int len) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < len; i++) {
@@ -115,7 +123,7 @@ class BackspaceStringCompareTest {
     @Test
     public void can_validate_100_000() {
         BackspaceStringCompare solution = new BackspaceStringCompare();
-        long target = 1;
+        long target = 100_000_000;
         long taken = 0;
         for (int i = 0; i < 100_000; i++) {
             int random = (int)(Math.random() * 5);
