@@ -42,4 +42,12 @@ class MiddleOfTheLinkedListTest {
         assertEquals(expected, actual, target[0].toString());
     }
 
+    @Test
+    public void can_find_middle_element_4() {
+        MiddleOfTheLinkedList.ListNode[] target = getNode(new int[] {1,2,3,4,5,6,7,8,9,10});
+        MiddleOfTheLinkedList.ListNode expected = target[5];
+        MiddleOfTheLinkedList.ListNode actual = new MiddleOfTheLinkedList().middleNode(target[0]);
+        assertEquals(expected, actual, target[0].toString());
+    }
+
 }
