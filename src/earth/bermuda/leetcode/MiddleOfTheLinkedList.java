@@ -1,7 +1,5 @@
 package earth.bermuda.leetcode;
 
-import java.util.List;
-
 public class MiddleOfTheLinkedList {
 
     public ListNode middleNode(ListNode head) {
