@@ -14,7 +14,7 @@ class BackspaceStringCompareTest {
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
             if (c == '#') {
-                sb.setLength(Math.max(0, sb.length()));
+                sb.setLength(Math.max(0, sb.length() - 1));
             }
             else {
                 sb.append(c);
@@ -75,7 +75,15 @@ class BackspaceStringCompareTest {
     @Test
     public void can_backspace_compare_7() {
         String S = "abc##d", T = "ad";
-        boolean expected = false;
+        boolean expected = true;
+        boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
+        assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+    }
+
+    @Test
+    public void can_backspace_compare_8() {
+        String S = "a#b", T = "ba#";
+        boolean expected = true;
         boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
         assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
     }
