@@ -5,7 +5,18 @@ import java.util.List;
 public class MiddleOfTheLinkedList {
 
     public ListNode middleNode(ListNode head) {
-        return head;
+        ListNode step = head;
+        ListNode twoStep = head;
+        while (true) {
+            if ((twoStep = twoStep.next) == null) {
+                break;
+            }
+            step = step.next;
+            if ((twoStep = twoStep.next) == null) {
+                break;
+            }
+        }
+        return step;
     }
 
     static class ListNode {
