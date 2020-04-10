@@ -96,6 +96,22 @@ class BackspaceStringCompareTest {
         assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
     }
 
+    @Test
+    public void can_backspace_compare_10() {
+        String S = "##b#", T = "#ab#b##";
+        boolean expected = true;
+        boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
+        assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+    }
+
+    @Test
+    public void can_backspace_compare_11() {
+        String S = "bxj##tw", T = "bxo#j##tw";
+        boolean expected = true;
+        boolean actual = new BackspaceStringCompare().backspaceCompare(S, T);
+        assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
+    }
+
     private static String generateSting(int len) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < len; i++) {
@@ -105,12 +121,12 @@ class BackspaceStringCompareTest {
     }
 
     @Test
-    public void can_test_10_000() {
+    public void can_test_10_000_000() {
         BackspaceStringCompare solution = new BackspaceStringCompare();
-        for (int i = 0; i < 10_000; i++) {
+        for (int i = 0; i < 10_000_000; i++) {
             int random = (int)(Math.random() * 5);
             String S = generateSting(random);
-            String T = generateSting(random + (int)(Math.random() * 2));
+            String T = generateSting(random + (int)(Math.random() * 4));
             boolean expected = oracle(S, T);
             boolean actual = solution.backspaceCompare(S, T);
             assertEquals(expected, actual, expected ? (S + " == " + T) : (S + " != " + T));
