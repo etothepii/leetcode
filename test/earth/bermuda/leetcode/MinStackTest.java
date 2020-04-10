@@ -46,6 +46,37 @@ class MinStackTest {
             }
         }
     }
+
+    @Test
+    public void can_profile_100_000() {
+        long target = 1;
+        int min_count = 0;
+        long time = 0;
+        for (int iteration = 1; iteration <= 100_000; iteration++) {
+            int steps = Math.max(20, (int)(Math.random() * 100_000 / iteration));
+            MinStack minStack = new MinStack();
+            for (int step = 0; step < steps; step++) {
+                double random = Math.random();
+                if (random < .3) {
+                    minStack.push((int)(Math.random() * Integer.MAX_VALUE));
+                }
+                else if (random < .6) {
+                    minStack.push(-(int)(Math.random() * Integer.MAX_VALUE));
+                }
+                else if (random < .9) {
+                    minStack.pop();
+                }
+                else {
+                    long start = System.nanoTime();
+                    minStack.getMin();
+                    time += System.nanoTime() - start;
+                    min_count++;
+                }
+            }
+        }
+        double mean = ((double)time) / min_count;
+        assertTrue(mean < target, mean + "ns < " + target + "ns");
+    }
 }
 
 class MinStackHarness {
