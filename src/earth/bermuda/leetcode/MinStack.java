@@ -15,10 +15,16 @@ public class MinStack {
     }
 
     public void pop() {
+        if (list.isEmpty()) {
+            return;
+        }
         list.remove(list.size() -1);
     }
 
     public int top() {
+        if (list.isEmpty()) {
+            return 0;
+        }
         return list.get(list.size() - 1);
     }
 
