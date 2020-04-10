@@ -1,40 +1,43 @@
 package earth.bermuda.leetcode;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MinStack {
 
-    private final ArrayList<Integer> list = new ArrayList<>();
+    private int[] list = new int[10];
+    private int[] min_indexes = new int[10];
+    private int list_pointer = -1;
+    private int min_indexes_pointer = -1;
 
-    public MinStack() {
-
-    }
+    public MinStack() {}
 
     public void push(int x) {
-        list.add(x);
+        list_pointer++;
+        if (list_pointer == list.length) {
+            list = Arrays.copyOf(list, list.length * 10);
+        }
+        list[list_pointer] = x;
+        if (min_indexes_pointer < 0 || x < list[min_indexes[min_indexes_pointer]]) {
+            min_indexes_pointer++;
+            if (min_indexes_pointer == min_indexes.length) {
+                min_indexes = Arrays.copyOf(min_indexes, min_indexes.length * 10);
+            }
+            min_indexes[min_indexes_pointer] = list_pointer;
+        }
     }
 
     public void pop() {
-        if (list.isEmpty()) {
-            return;
+        if (min_indexes[min_indexes_pointer] == list_pointer) {
+            min_indexes_pointer--;
         }
-        list.remove(list.size() -1);
+        list_pointer--;
     }
 
     public int top() {
-        if (list.isEmpty()) {
-            return 0;
-        }
-        return list.get(list.size() - 1);
+        return list[list_pointer];
     }
 
     public int getMin() {
-        int min = Integer.MAX_VALUE;
-        for (int i : list) {
-            if (i < min) {
-                min = i;
-            }
-        }
-        return min;
+        return list[min_indexes[min_indexes_pointer]];
     }
 }

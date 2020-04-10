@@ -22,25 +22,21 @@ class MinStackTest {
     }
 
     @Test
-    public void can_find_minimum_item_on_stack_100_000_times() {
-        for (int iteration = 1; iteration <= 100_000; iteration++) {
-            int steps = Math.max(20, (int)(Math.random() * 100_000 / iteration));
+    public void can_find_minimum_item_on_stack_30_000_times() {
+        for (int iteration = 1; iteration <= 30_000; iteration++) {
+            int steps = Math.max(20, (int) (Math.random() * 30_000 / iteration));
             MinStackHarness minStackHarness = new MinStackHarness();
             for (int step = 0; step < steps; step++) {
                 double random = Math.random();
                 if (random < .3) {
-                    minStackHarness.push((int)(Math.random() * Integer.MAX_VALUE));
-                }
-                else if (random < .6) {
-                    minStackHarness.push(-(int)(Math.random() * Integer.MAX_VALUE));
-                }
-                else if (random < .9) {
+                    minStackHarness.push((int) (Math.random() * Integer.MAX_VALUE));
+                } else if (random < .6) {
+                    minStackHarness.push(-(int) (Math.random() * Integer.MAX_VALUE));
+                } else if (random < .9) {
                     minStackHarness.pop();
-                }
-                else if (random < .95) {
+                } else if (random < .95) {
                     minStackHarness.assertEqualityOfMin();
-                }
-                else {
+                } else {
                     minStackHarness.assertEqualityOfTop();
                 }
             }
@@ -49,24 +45,27 @@ class MinStackTest {
 
     @Test
     public void can_profile_100_000() {
-        long target = 1;
+        long target = 50;
         int min_count = 0;
         long time = 0;
         for (int iteration = 1; iteration <= 100_000; iteration++) {
-            int steps = Math.max(20, (int)(Math.random() * 100_000 / iteration));
+            int steps = Math.max(20, (int) (Math.random() * 100_000 / iteration));
             MinStack minStack = new MinStack();
+            int length = 0;
             for (int step = 0; step < steps; step++) {
                 double random = Math.random();
                 if (random < .3) {
-                    minStack.push((int)(Math.random() * Integer.MAX_VALUE));
-                }
-                else if (random < .6) {
-                    minStack.push(-(int)(Math.random() * Integer.MAX_VALUE));
-                }
-                else if (random < .9) {
-                    minStack.pop();
-                }
-                else {
+                    minStack.push((int) (Math.random() * Integer.MAX_VALUE));
+                    length++;
+                } else if (random < .6) {
+                    minStack.push(-(int) (Math.random() * Integer.MAX_VALUE));
+                    length++;
+                } else if (random < .9) {
+                    if (length > 0) {
+                        minStack.pop();
+                        length--;
+                    }
+                } else if (length > 0) {
                     long start = System.nanoTime();
                     minStack.getMin();
                     time += System.nanoTime() - start;
@@ -74,7 +73,7 @@ class MinStackTest {
                 }
             }
         }
-        double mean = ((double)time) / min_count;
+        double mean = ((double) time) / min_count;
         assertTrue(mean < target, mean + "ns < " + target + "ns");
     }
 }
@@ -102,12 +101,18 @@ class MinStackHarness {
     }
 
     public void pop() {
+        if (naiveMinStack.isEmpty()) {
+            return;
+        }
         minStack.pop();
         naiveMinStack.pop();
         commands.add("POP");
     }
 
     public void assertEqualityOfTop() {
+        if (naiveMinStack.isEmpty()) {
+            return;
+        }
         int expected = naiveMinStack.top();
         int actual = minStack.top();
         assertEquals(expected, actual, String.format(
@@ -115,6 +120,9 @@ class MinStackHarness {
     }
 
     public void assertEqualityOfMin() {
+        if (naiveMinStack.isEmpty()) {
+            return;
+        }
         int expected = naiveMinStack.getMin();
         int actual = minStack.getMin();
         assertEquals(expected, actual, String.format(
@@ -126,7 +134,12 @@ class NaiveMinStack {
 
     private final ArrayList<Integer> list = new ArrayList<>();
 
-    public NaiveMinStack() { }
+    public NaiveMinStack() {
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
 
     public void push(int x) {
         list.add(x);
