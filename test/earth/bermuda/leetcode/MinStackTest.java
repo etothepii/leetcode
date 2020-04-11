@@ -77,7 +77,7 @@ class MinStackTest {
 
     @Test
     public void can_profile_100_000() {
-        double target = 1;
+        double target = 35;
         double sum = 0;
         double sum_of_squares = 0;
         int n = 100;
