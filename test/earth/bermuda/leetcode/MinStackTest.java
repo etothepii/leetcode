@@ -24,7 +24,7 @@ class MinStackTest {
     @Test
     public void can_find_minimum_item_on_stack_30_000_times() {
         for (int iteration = 1; iteration <= 30_000; iteration++) {
-            int steps = Math.max(20, (int) (Math.random() * 30_000 / iteration));
+            int steps = Math.min(10_000, Math.max(20, (int) (Math.random() * 30_000 / iteration)));
             MinStackHarness minStackHarness = new MinStackHarness();
             for (int step = 0; step < steps; step++) {
                 double random = Math.random();
@@ -43,13 +43,12 @@ class MinStackTest {
         }
     }
 
-    @Test
-    public void can_profile_100_000() {
-        long target = 50;
+    private double profile() {
+        long target = 10;
         int min_count = 0;
         long time = 0;
         for (int iteration = 1; iteration <= 100_000; iteration++) {
-            int steps = Math.max(20, (int) (Math.random() * 100_000 / iteration));
+            int steps = Math.min(9_999, Math.max(20, (int) (Math.random() * 100_000 / iteration)));
             MinStack minStack = new MinStack();
             int length = 0;
             for (int step = 0; step < steps; step++) {
@@ -73,8 +72,23 @@ class MinStackTest {
                 }
             }
         }
-        double mean = ((double) time) / min_count;
-        assertTrue(mean < target, mean + "ns < " + target + "ns");
+        return ((double) time) / min_count;
+    }
+
+    @Test
+    public void can_profile_100_000() {
+        double target = 1;
+        double sum = 0;
+        double sum_of_squares = 0;
+        int n = 100;
+        for (int i = 0; i < n; i++) {
+            double mean = profile();
+            sum += mean;
+            sum_of_squares += mean * mean;
+        }
+        double mean = sum / n;
+        double std = Math.sqrt((sum_of_squares - sum * sum / n) / n);
+        assertTrue(mean + std * 2 < target, String.format("mean: %.2fns std: %.2fns => 2sd > %fns", mean, std, target));
     }
 }
 
