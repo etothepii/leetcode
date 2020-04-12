@@ -1,6 +1,11 @@
 package earth.bermuda.leetcode;
 
+import com.sun.source.tree.Tree;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -150,4 +155,63 @@ class DiameterOfBinaryTreeTest {
 
     }
 
+    @Test
+    public void can_find_random_1_000() {
+        DiameterOfBinaryTree solution = new DiameterOfBinaryTree();
+        NiaveDiameterOfBinaryTree expectedSolution = new NiaveDiameterOfBinaryTree();
+        for (int i = 0; i < 1_000; i++) {
+            TreeNode[] nodes = createTreeNones(Math.max(1, (int) (Math.random() * 100)));
+            int nextChild = 0;
+            for (int node = 0; node < nodes.length; node++) {
+                if (Math.random() < .8 && ++nextChild < nodes.length) {
+                    nodes[node].left = nodes[nextChild];
+                }
+                if (Math.random() < .8 && ++nextChild < nodes.length) {
+                    nodes[node].right = nodes[nextChild];
+                }
+            }
+            int actual = solution.diameterOfBinaryTree(nodes[0]);
+            int expected = expectedSolution.diameterOfBinaryTree(nodes[0]);
+            assertEquals(expected, actual);
+        }
+    }
+
+}
+
+class NiaveDiameterOfBinaryTree {
+
+    private int count = 0;
+
+    private void getStrings(List<int[]> strings, int[] soFar, TreeNode treeNode) {
+        if (treeNode == null) {
+            return;
+        }
+        soFar = Arrays.copyOf(soFar, soFar.length + 1);
+        soFar[soFar.length - 1] = count++;
+        strings.add(soFar);
+        getStrings(strings, soFar, treeNode.left);
+        getStrings(strings, soFar, treeNode.right);
+    }
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        List<int[]> strings = new ArrayList<>();
+        getStrings(strings, new int[0], root);
+        int max = 0;
+        for (int[] a : strings) {
+            for (int[] b : strings) {
+                max = Math.max(max, d(a, b));
+            }
+        }
+        return max;
+    }
+
+    private int d(int[] a, int[] b) {
+        int similar;
+        for (similar = 0; similar < Math.min(a.length, b.length); similar++) {
+            if (a[similar] != b[similar]) {
+                break;
+            }
+        }
+        return a.length + b.length - 2 * similar;
+    }
 }
