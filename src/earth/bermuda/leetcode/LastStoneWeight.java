@@ -1,31 +1,25 @@
 package earth.bermuda.leetcode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class LastStoneWeight {
     public int lastStoneWeight(int[] stones) {
         Arrays.sort(stones);
-        ArrayList<Integer> stone_list = new ArrayList<>();
-        for (int stone : stones) {
-            stone_list.add(stone);
-        }
-        while (stone_list.size() > 1) {
-            Integer x = stone_list.remove(stone_list.size() - 2);
-            Integer y = stone_list.remove(stone_list.size() - 1);
+        int size = stones.length;
+        while (size > 1) {
+            int y = stones[--size];
+            int x = stones[--size];
             if (y > x) {
-                Integer z = y - x;
-                int index = Collections.binarySearch(stone_list, z);
+                int z = y - x;
+                int index = Arrays.binarySearch(stones, 0, size, z);
                 if (index < 0) {
-                    stone_list.add(~index, z);
+                    index = ~index;
                 }
-                else {
-                    stone_list.add(index, z);
-                }
+                System.arraycopy(stones, index, stones, index + 1, ++size - index);
+                stones[index] = z;
             }
         }
-        return stone_list.size() > 0 ? stone_list.get(0) : 0;
+        return size > 0 ? stones[0] : 0;
     }
 }
+
