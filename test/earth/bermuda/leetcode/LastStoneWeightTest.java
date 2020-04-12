@@ -33,4 +33,12 @@ class LastStoneWeightTest {
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
+    @Test
+    public void can_last_stone_weight_4() {
+        int[] target = new int[] {1,3};
+        int expected = 2;
+        int actual = new LastStoneWeight().lastStoneWeight(target);
+        assertEquals(expected, actual, Arrays.toString(target));
+    }
+
 }
