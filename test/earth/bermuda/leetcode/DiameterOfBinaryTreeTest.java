@@ -180,7 +180,7 @@ class DiameterOfBinaryTreeTest {
     public void can_profile_random_100_000() {
         DiameterOfBinaryTree solution = new DiameterOfBinaryTree();
         NiaveDiameterOfBinaryTree expectedSolution = new NiaveDiameterOfBinaryTree();
-        double target = 1;
+        double target = 5000;
         double sum = 0;
         double sum_squares = 0;
         int iterations = 100;
@@ -208,7 +208,7 @@ class DiameterOfBinaryTreeTest {
         }
         double mean = sum / iterations;
         double std = Math.sqrt(sum_squares / iterations  - mean * mean);
-        assertTrue(mean + 2 * std < target, String.format("mean: %.2dns std: %.2dns => 2 std > %.2dns", mean, std, target));
+        assertTrue(mean + 2 * std < target, String.format("mean: %.2fns std: %.2fns => 2 std > %.2fns", mean, std, target));
     }
 
 }
