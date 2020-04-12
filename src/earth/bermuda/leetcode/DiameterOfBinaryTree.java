@@ -6,12 +6,14 @@ import java.util.List;
 
 class DiameterOfBinaryTree {
 
+    private int count = 0;
+
     private void getStrings(List<int[]> strings, int[] soFar, TreeNode treeNode) {
         if (treeNode == null) {
             return;
         }
         soFar = Arrays.copyOf(soFar, soFar.length + 1);
-        soFar[soFar.length - 1] = treeNode.val;
+        soFar[soFar.length - 1] = count++;
         strings.add(soFar);
         getStrings(strings, soFar, treeNode.left);
         getStrings(strings, soFar, treeNode.right);

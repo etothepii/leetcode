@@ -126,4 +126,28 @@ class DiameterOfBinaryTreeTest {
 
     }
 
+    @Test
+    public void can_find_diameter_5() {
+
+//          0
+//         / \
+//        0   0
+//       / \
+//      0   0
+
+        TreeNode[] treeNodes = createTreeNones(5);
+        for (TreeNode node : treeNodes) {
+            node.val = 0;
+        }
+        treeNodes[0].left = treeNodes[1];
+        treeNodes[0].right = treeNodes[2];
+        treeNodes[1].left = treeNodes[3];
+        treeNodes[1].right = treeNodes[4];
+
+        int expected = 3;
+        int actual = new DiameterOfBinaryTree().diameterOfBinaryTree(treeNodes[0]);
+        assertEquals(expected, actual);
+
+    }
+
 }
