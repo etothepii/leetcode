@@ -2,30 +2,27 @@ package earth.bermuda.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 class DiameterOfBinaryTree {
 
-    private int count = 0;
-
-    private void getStrings(List<int[]> strings, int[] soFar, TreeNode treeNode) {
-        if (treeNode == null) {
-            return;
-        }
-        soFar = Arrays.copyOf(soFar, soFar.length + 1);
-        soFar[soFar.length - 1] = count++;
-        strings.add(soFar);
-        getStrings(strings, soFar, treeNode.left);
-        getStrings(strings, soFar, treeNode.right);
-    }
-
     public int diameterOfBinaryTree(TreeNode root) {
-        List<int[]> strings = new ArrayList<>();
-        getStrings(strings, new int[0], root);
+        if (root == null) {
+            return 0;
+        }
+        EnurableTreeNode enurableTreeNode = new EnurableTreeNode(root);
+        int[] current = null;
+        int[] extrema_1 = enurableTreeNode.soFar;
+        int[] extrema_2 = enurableTreeNode.soFar;
         int max = 0;
-        for (int[] a : strings) {
-            for (int[] b : strings) {
-                max = Math.max(max, d(a, b));
+        while ((current = enurableTreeNode.next() ) != null) {
+            int diameter;
+            if ((diameter = d(extrema_1, current)) > max) {
+                extrema_2 = current;
+                max = diameter;
+            }
+            else if ((diameter = d(extrema_2, current)) > max) {
+                extrema_1 = current;
+                max = diameter;
             }
         }
         return max;
@@ -39,6 +36,52 @@ class DiameterOfBinaryTree {
             }
         }
         return a.length + b.length - 2 * similar;
+    }
+}
+
+class EnurableTreeNode {
+
+    private int count = 0;
+    private final ArrayList<TreeNode> stack = new ArrayList<>(1000);
+    public int[] soFar = new int[0];
+
+    public EnurableTreeNode(TreeNode root) {
+        stack.add(root);
+        addNewNode();
+    }
+
+    private TreeNode last() {
+        return stack.get(stack.size() - 1);
+    }
+
+    public int[] next() {
+        if (last().left != null) {
+            stack.add(last().left);
+            addNewNode();
+            return soFar;
+        }
+        else if (last().right != null) {
+            stack.add(last().right);
+            addNewNode();
+            return soFar;
+        }
+        TreeNode terminus = stack.remove(stack.size() - 1);
+        soFar = Arrays.copyOf(soFar, soFar.length - 1);
+        if (soFar.length == 0) {
+            return null;
+        }
+        if (last().left == terminus) {
+            last().left = null;
+        }
+        else if (last().right == terminus) {
+            last().right = null;
+        }
+        return next();
+    }
+
+    private void addNewNode() {
+        soFar = Arrays.copyOf(soFar, soFar.length + 1);
+        soFar[soFar.length - 1] = count++;
     }
 }
 

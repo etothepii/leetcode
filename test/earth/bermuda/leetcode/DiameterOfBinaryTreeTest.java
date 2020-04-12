@@ -155,6 +155,31 @@ class DiameterOfBinaryTreeTest {
 
     }
 
+
+    @Test
+    public void can_find_diameter_6() {
+
+//          1
+
+        TreeNode[] treeNodes = createTreeNones(1);
+
+        int expected = 0;
+        int actual = new DiameterOfBinaryTree().diameterOfBinaryTree(treeNodes[0]);
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void can_find_diameter_7() {
+
+//
+
+        int expected = 0;
+        int actual = new DiameterOfBinaryTree().diameterOfBinaryTree(null);
+        assertEquals(expected, actual);
+    }
+
+
     @Test
     public void can_find_random_1_000() {
         DiameterOfBinaryTree solution = new DiameterOfBinaryTree();
@@ -170,8 +195,8 @@ class DiameterOfBinaryTreeTest {
                     nodes[node].right = nodes[nextChild];
                 }
             }
-            int actual = solution.diameterOfBinaryTree(nodes[0]);
             int expected = expectedSolution.diameterOfBinaryTree(nodes[0]);
+            int actual = solution.diameterOfBinaryTree(nodes[0]);
             assertEquals(expected, actual);
         }
     }
@@ -207,7 +232,7 @@ class DiameterOfBinaryTreeTest {
             sum_squares += mean * mean;
         }
         double mean = sum / iterations;
-        double std = Math.sqrt(sum_squares / iterations  - mean * mean);
+        double std = Math.sqrt(sum_squares / iterations - mean * mean);
         assertTrue(mean + 2 * std < target, String.format("mean: %.2fns std: %.2fns => 2 std > %.2fns", mean, std, target));
     }
 
