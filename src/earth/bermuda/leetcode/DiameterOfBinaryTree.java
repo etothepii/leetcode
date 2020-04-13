@@ -23,10 +23,14 @@ class DiameterOfBinaryTree {
         List<int[]> strings = new ArrayList<>();
         getStrings(strings, new int[0], root);
         int max = 0;
+        int[] longest = null;
         for (int[] a : strings) {
-            for (int[] b : strings) {
-                max = Math.max(max, d(a, b));
+            if (longest == null || a.length > longest.length) {
+                longest = a;
             }
+        }
+        for (int[] b : strings) {
+            max = Math.max(max, d(longest, b));
         }
         return max;
     }
