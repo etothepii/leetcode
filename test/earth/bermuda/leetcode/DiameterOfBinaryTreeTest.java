@@ -155,6 +155,31 @@ class DiameterOfBinaryTreeTest {
 
     }
 
+
+    @Test
+    public void can_find_diameter_6() {
+
+//          1
+
+        TreeNode[] treeNodes = createTreeNones(1);
+
+        int expected = 0;
+        int actual = new DiameterOfBinaryTree().diameterOfBinaryTree(treeNodes[0]);
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void can_find_diameter_7() {
+
+//
+
+        int expected = 0;
+        int actual = new DiameterOfBinaryTree().diameterOfBinaryTree(null);
+        assertEquals(expected, actual);
+    }
+
+
     @Test
     public void can_find_random_1_000() {
         DiameterOfBinaryTree solution = new DiameterOfBinaryTree();
@@ -170,10 +195,45 @@ class DiameterOfBinaryTreeTest {
                     nodes[node].right = nodes[nextChild];
                 }
             }
-            int actual = solution.diameterOfBinaryTree(nodes[0]);
             int expected = expectedSolution.diameterOfBinaryTree(nodes[0]);
+            int actual = solution.diameterOfBinaryTree(nodes[0]);
             assertEquals(expected, actual);
         }
+    }
+
+    @Test
+    public void can_profile_random_100_000() {
+        DiameterOfBinaryTree solution = new DiameterOfBinaryTree();
+        NiaveDiameterOfBinaryTree expectedSolution = new NiaveDiameterOfBinaryTree();
+        double target = 5000;
+        double sum = 0;
+        double sum_squares = 0;
+        int iterations = 100;
+        int loop = 1_000;
+        for (int j = 0; j < iterations; j++) {
+            long time = 0;
+            for (int i = 0; i < loop; i++) {
+                TreeNode[] nodes = createTreeNones(Math.max(1, (int) (Math.random() * 100)));
+                int nextChild = 0;
+                for (int node = 0; node < nodes.length; node++) {
+                    if (Math.random() < .8 && ++nextChild < nodes.length) {
+                        nodes[node].left = nodes[nextChild];
+                    }
+                    if (Math.random() < .8 && ++nextChild < nodes.length) {
+                        nodes[node].right = nodes[nextChild];
+                    }
+                }
+                long start = System.nanoTime();
+                solution.diameterOfBinaryTree(nodes[0]);
+                time += System.nanoTime() - start;
+            }
+            long mean = time / loop;
+            sum += mean;
+            sum_squares += mean * mean;
+        }
+        double mean = sum / iterations;
+        double std = Math.sqrt(sum_squares / iterations - mean * mean);
+        assertTrue(mean + 2 * std < target, String.format("mean: %.2fns std: %.2fns => 2 std > %.2fns", mean, std, target));
     }
 
 }
