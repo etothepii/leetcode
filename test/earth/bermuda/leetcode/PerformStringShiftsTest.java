@@ -49,6 +49,18 @@ class PerformStringShiftsTest {
     }
 
     @Test
+    public void can_string_shift_3() {
+        String s = "axzkyxfiogcpwzfnrydjigaqltnwhakxedewql";
+        int[][] shift = new int[][]{
+                new int[] {0, 92}, new int[] {1, 41}, new int[] {0, 45}, new int[] {0, 10}, new int[] {1, 66},
+                new int[] {0, 10}, new int[] {0, 57}, new int[] {1, 86}, new int[] {1, 46}, new int[] {0, 52},
+                new int[] {1, 16}, new int[] {0, 48}};
+        String expected = "gaqltnwhakxedewqlaxzkyxfiogcpwzfnrydji";
+        String actual = new PerformStringShifts().stringShift(s, shiftCopy(shift));
+        lazyAssertEquals(expected, actual, s, shift);
+    }
+
+    @Test
     public void can_run_10_000() {
         PerformStringShifts solution = new PerformStringShifts();
         for (int i = 0; i < 10_000; i++) {

@@ -4,23 +4,23 @@ import java.util.ArrayList;
 
 public class PerformStringShifts {
     public String stringShift(String s, int[][] shift) {
-        ArrayList<Character> chars = new ArrayList<>();
-        for (char c : s.toCharArray()) {
-            chars.add(c);
-        }
-        for (int[] ints : shift) {
-            for (int j = 0; j < ints[1]; j++) {
-                if (ints[0] == 0) {
-                    chars.add(chars.remove(0));
-                } else {
-                    chars.add(0, chars.remove(chars.size() - 1));
-                }
+        short total = 0;
+        for (int [] rotate : shift) {
+            if (rotate[0] == 0) {
+                total -= rotate[1];
+            }
+            else {
+                total += rotate[1];
             }
         }
-        StringBuilder sb = new StringBuilder();
-        for (Character c : chars) {
-            sb.append(c);
+        total %= s.length();
+        if (total < 0) {
+            total += s.length();
         }
-        return sb.toString();
+        char[] original = s.toCharArray();
+        char[] chars = new char[s.length()];
+        System.arraycopy(original, 0, chars, total, chars.length - total);
+        System.arraycopy(original, chars.length - total, chars, 0, total);
+        return new String(chars);
     }
 }
