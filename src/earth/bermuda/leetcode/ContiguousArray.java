@@ -7,15 +7,17 @@ public class ContiguousArray {
         char[] firstSeen = new char[100];
         int cum = 0;
         int max = 0;
-        for (int i = 0; i < nums.length;) {
-            if (nums[i++] == 0) {
+        char c = 0;
+        for (int num : nums) {
+            if (num == 0) {
                 cum++;
             }
             else {
                 cum--;
             }
+            c++;
             if (cum == 0) {
-                max = Math.max(max, i);
+                max = Math.max(max, c);
                 continue;
             }
             int index = cum < 0 ? ~ (cum << 1) : cum << 1;
@@ -23,10 +25,10 @@ public class ContiguousArray {
                 firstSeen = Arrays.copyOf(firstSeen, firstSeen.length * 10);
             }
             if (firstSeen[index] > 0) {
-                max = Math.max(max, i - firstSeen[index]);
+                max = Math.max(max, c - firstSeen[index]);
             }
             else {
-                firstSeen[index] = (char)i;
+                firstSeen[index] = c;
             }
         }
         return max;
