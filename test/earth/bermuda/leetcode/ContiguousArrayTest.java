@@ -14,8 +14,8 @@ class ContiguousArrayTest {
         for (int i = 0; i < nums.length; i++) {
             cum += nums[i];
             nums[i] = cum;
-            if (cum == i * 2 - 1) {
-                max = i;
+            if (i % 2 == 1 && cum == (i + 1) / 2) {
+                max = cum;
                 continue;
             }
             for (int j = max + 1; i - j * 2 >= 0; j++) {
@@ -31,7 +31,7 @@ class ContiguousArrayTest {
     public void can_find_contiguous_array_1() {
         int[] target = new int[]{0, 1};
         int expected = 2;
-        int actual = new ContiguousArray().findMaxLength(target);
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
@@ -39,7 +39,7 @@ class ContiguousArrayTest {
     public void can_find_contiguous_array_2() {
         int[] target = new int[]{0, 1, 0};
         int expected = 2;
-        int actual = new ContiguousArray().findMaxLength(target);
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
@@ -47,7 +47,7 @@ class ContiguousArrayTest {
     public void can_find_contiguous_array_3() {
         int[] target = new int[]{0, 0, 0};
         int expected = 0;
-        int actual = new ContiguousArray().findMaxLength(target);
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
@@ -55,7 +55,7 @@ class ContiguousArrayTest {
     public void can_find_contiguous_array_4() {
         int[] target = new int[]{};
         int expected = 0;
-        int actual = new ContiguousArray().findMaxLength(target);
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
@@ -63,15 +63,15 @@ class ContiguousArrayTest {
     public void can_find_contiguous_array_5() {
         int[] target = new int[]{0,0,1,0,0,0,1,1};
         int expected = 6;
-        int actual = new ContiguousArray().findMaxLength(target);
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
     @Test
     public void can_find_contiguous_array_6() {
         int[] target = new int[]{0,1,0,1};
-        int expected = 2;
-        int actual = new ContiguousArray().findMaxLength(target);
+        int expected = 4;
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
     }
 
@@ -85,7 +85,7 @@ class ContiguousArrayTest {
                 target[j] = Math.random() < p ? 0 : 1;
             }
             int expected = validate(Arrays.copyOf(target, target.length));
-            int actual = solution.findMaxLength(target);
+            int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
             assertEquals(expected, actual, Arrays.toString(target));
         }
     }

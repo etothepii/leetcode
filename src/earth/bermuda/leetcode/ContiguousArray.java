@@ -7,8 +7,8 @@ public class ContiguousArray {
         for (int i = 0; i < nums.length; i++) {
             cum += nums[i];
             nums[i] = cum;
-            if (cum == i * 2 - 1) {
-                max = i;
+            if (i % 2 == 1 && cum == (i + 1) / 2) {
+                max = cum;
                 continue;
             }
             for (int j = max + 1; i - j * 2 >= 0; j++) {
