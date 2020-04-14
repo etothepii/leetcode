@@ -4,17 +4,23 @@ import java.util.HashMap;
 
 public class ContiguousArray {
     public int findMaxLength(int[] nums) {
-        HashMap<Integer, Integer> firstSeen = new HashMap<>();
-        firstSeen.put(0, -1);
+        short[] firstSeen = new short[50_001];
+        boolean[] seen = new boolean[50_001];
+        firstSeen[25_000] = -1;
+        seen[25_000] = true;
         int cum = 0;
         int max = 0;
         for (int i = 0; i < nums.length; i++) {
             cum += nums[i] * 2 - 1;
-            if (firstSeen.containsKey(cum)) {
-                max = Math.max(max, i - firstSeen.get(cum));
+            if (Math.abs(cum) > 25_000) {
+                break;
+            }
+            if (seen[cum + 25_000]) {
+                max =  Math.max(max, i - firstSeen[cum + 25_000]);
             }
             else {
-                firstSeen.put(cum, i);
+                firstSeen[cum + 25_000] = (short)i;
+                seen[cum + 25_000] = true;
             }
         }
         return max;

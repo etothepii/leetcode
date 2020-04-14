@@ -2,6 +2,9 @@ package earth.bermuda.leetcode;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,7 +64,7 @@ class ContiguousArrayTest {
 
     @Test
     public void can_find_contiguous_array_5() {
-        int[] target = new int[]{0,0,1,0,0,0,1,1};
+        int[] target = new int[]{0, 0, 1, 0, 0, 0, 1, 1};
         int expected = 6;
         int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
@@ -69,7 +72,7 @@ class ContiguousArrayTest {
 
     @Test
     public void can_find_contiguous_array_6() {
-        int[] target = new int[]{0,1,0,1};
+        int[] target = new int[]{0, 1, 0, 1};
         int expected = 4;
         int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
         assertEquals(expected, actual, Arrays.toString(target));
@@ -87,6 +90,20 @@ class ContiguousArrayTest {
     }
 
     @Test
+    public void can_find_contiguous_array_8() throws IOException {
+        String s = Files.readString(
+                new File(ContiguousArrayTest.class.getResource(
+                        "/large_array.txt").getFile()).toPath());
+        int[] target = new int[s.length()];
+        for (int i = 0; i < 50_000; i++) {
+            target[i] = s.charAt(i) - 48;
+        }
+        int expected = 44578;
+        int actual = new ContiguousArray().findMaxLength(target);
+        assertEquals(expected, actual, "A large array");
+    }
+
+    @Test
     public void test_10_000() {
         ContiguousArray solution = new ContiguousArray();
         for (int i = 0; i < 10_000; i++) {
@@ -100,5 +117,6 @@ class ContiguousArrayTest {
             assertEquals(expected, actual, Arrays.toString(target));
         }
     }
+
 
 }
