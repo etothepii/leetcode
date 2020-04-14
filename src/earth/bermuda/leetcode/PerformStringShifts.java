@@ -1,15 +1,12 @@
 package earth.bermuda.leetcode;
 
-import java.util.ArrayList;
-
 public class PerformStringShifts {
     public String stringShift(String s, int[][] shift) {
         short total = 0;
-        for (int [] rotate : shift) {
+        for (int[] rotate : shift) {
             if (rotate[0] == 0) {
                 total -= rotate[1];
-            }
-            else {
+            } else {
                 total += rotate[1];
             }
         }
