@@ -118,5 +118,13 @@ class ContiguousArrayTest {
         }
     }
 
+    @Test
+    public void can_bit_shift_1() {
+        assertEquals(3, ~(-2 << 1));
+        assertEquals(1, ~(-1 << 1));
+        assertEquals(0, (0 << 1));
+        assertEquals(2, (1 << 1));
+        assertEquals(4, (2 << 1));
+    }
 
 }
