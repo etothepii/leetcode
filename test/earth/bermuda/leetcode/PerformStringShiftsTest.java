@@ -14,12 +14,13 @@ class PerformStringShiftsTest {
         for (char c : s.toCharArray()) {
             chars.add(c);
         }
-        for (int i = 0; i < shift.length; i++) {
-            char c = chars.remove(i);
-            if (shift[i][0] == 0) {
-                chars.add(Math.max(0, i - shift[i][1]), c);
-            } else {
-                chars.add(Math.min(chars.size(), i + shift[i][1]), c);
+        for (int[] ints : shift) {
+            for (int j = 0; j < ints[1]; j++) {
+                if (ints[0] == 0) {
+                    chars.add(chars.remove(0));
+                } else {
+                    chars.add(0, chars.remove(chars.size() - 1));
+                }
             }
         }
         StringBuilder sb = new StringBuilder();
@@ -35,16 +36,16 @@ class PerformStringShiftsTest {
         int[][] shift = new int[][]{new int[]{0, 1}, new int[]{1, 2}};
         String expected = "cab";
         String actual = new PerformStringShifts().stringShift(s, shiftCopy(shift));
-        assertEquals(expected, actual, s, shift);
+        lazyAssertEquals(expected, actual, s, shift);
     }
 
     @Test
     public void can_string_shift_2() {
-        String s = "efgabcd";
+        String s = "abcdefg";
         int[][] shift = new int[][]{new int[]{1, 1}, new int[]{1, 1}, new int[]{0, 2}, new int[]{1, 3}};
         String expected = "efgabcd";
         String actual = new PerformStringShifts().stringShift(s, shiftCopy(shift));
-        assertEquals(expected, actual, s, shift);
+        lazyAssertEquals(expected, actual, s, shift);
     }
 
     @Test
@@ -55,11 +56,11 @@ class PerformStringShiftsTest {
             int[][] shift = randomShift((int) (Math.random() * s.length()));
             String expected = validate(s, shiftCopy(shift));
             String actual = solution.stringShift(s, shiftCopy(shift));
-            assertEquals(expected, actual, s, shift);
+            lazyAssertEquals(expected, actual, s, shift);
         }
     }
 
-    private void assertEquals(String expected, String actual, String s, int[][] shift) {
+    private void lazyAssertEquals(String expected, String actual, String s, int[][] shift) {
         if (!expected.equals(actual)) {
             StringBuilder sb = new StringBuilder(shift.length * 10 + 10);
             sb.append(s);
