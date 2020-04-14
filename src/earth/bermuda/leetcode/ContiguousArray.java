@@ -1,22 +1,22 @@
 package earth.bermuda.leetcode;
 
+import java.util.HashMap;
+
 public class ContiguousArray {
     public int findMaxLength(int[] nums) {
+        HashMap<Integer, Integer> firstSeen = new HashMap<>();
+        firstSeen.put(0, -1);
         int cum = 0;
         int max = 0;
         for (int i = 0; i < nums.length; i++) {
-            cum += nums[i];
-            nums[i] = cum;
-            if (i % 2 == 1 && cum == (i + 1) / 2) {
-                max = cum;
-                continue;
+            cum += nums[i] * 2 - 1;
+            if (firstSeen.containsKey(cum)) {
+                max = Math.max(max, i - firstSeen.get(cum));
             }
-            for (int j = max + 1; i - j * 2 >= 0; j++) {
-                if (nums[i] - nums[i - j * 2] == j) {
-                    max = j;
-                }
+            else {
+                firstSeen.put(cum, i);
             }
         }
-        return max * 2;
+        return max;
     }
 }
