@@ -76,6 +76,17 @@ class ContiguousArrayTest {
     }
 
     @Test
+    public void can_find_contiguous_array_7() {
+        int[] target = new int[50_000];
+        for (int i = 0; i < 50_000; i += 2) {
+            target[i] = 1;
+        }
+        int expected = 50_000;
+        int actual = new ContiguousArray().findMaxLength(Arrays.copyOf(target, target.length));
+        assertEquals(expected, actual, Arrays.toString(target));
+    }
+
+    @Test
     public void test_10_000() {
         ContiguousArray solution = new ContiguousArray();
         for (int i = 0; i < 10_000; i++) {
