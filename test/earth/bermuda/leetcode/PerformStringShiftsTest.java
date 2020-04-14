@@ -2,6 +2,7 @@ package earth.bermuda.leetcode;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +10,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class PerformStringShiftsTest {
 
     private static String validate(String s, int[][] shift) {
-        return null;
+        ArrayList<Character> chars = new ArrayList<>();
+        for (char c : s.toCharArray()) {
+            chars.add(c);
+        }
+        for (int i = 0; i < shift.length; i++) {
+            chars.add(i + shift[i][1] * (shift[i][0] == 0 ? -1 : 1), chars.remove(i));
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Character c : chars) {
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
     @Test
