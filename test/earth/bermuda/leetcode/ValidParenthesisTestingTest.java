@@ -70,4 +70,36 @@ class ValidParenthesisTestingTest {
         assertEquals(expected, actual, s);
     }
 
+    @Test
+    public void can_validate_9() {
+        String s = ")()";
+        boolean expected = false;
+        boolean actual = new ValidParenthesisTesting().checkValidString(s);
+        assertEquals(expected, actual, s);
+    }
+
+    @Test
+    public void can_validate_10() {
+        String s = ")(**";
+        boolean expected = false;
+        boolean actual = new ValidParenthesisTesting().checkValidString(s);
+        assertEquals(expected, actual, s);
+    }
+
+    @Test
+    public void can_validate_11() {
+        String s = "(()))";
+        boolean expected = false;
+        boolean actual = new ValidParenthesisTesting().checkValidString(s);
+        assertEquals(expected, actual, s);
+    }
+
+    @Test
+    public void can_validate_12() {
+        String s = "((*))))";
+        boolean expected = false;
+        boolean actual = new ValidParenthesisTesting().checkValidString(s);
+        assertEquals(expected, actual, s);
+    }
+
 }
