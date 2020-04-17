@@ -13,7 +13,12 @@ public class ValidParenthesisTesting {
                 open--;
             }
             else if (c == '*') {
-                asterisk++;
+                if (open == 0) {
+                    open++;
+                }
+                else {
+                    asterisk++;
+                }
             }
             if (open < -asterisk) {
                 return false;
