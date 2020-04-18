@@ -2,7 +2,6 @@ package earth.bermuda.leetcode.contest1;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +12,7 @@ class FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsKTest {
         int k = 7;
         int expected = 2;
         int actual = new FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK().findMinFibonacciNumbers(k);
-        assertEquals(expected, actual, k);
+        assertEquals(expected, actual, k + "");
     }
 
     @Test
@@ -21,7 +20,7 @@ class FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsKTest {
         int k = 10;
         int expected = 2;
         int actual = new FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK().findMinFibonacciNumbers(k);
-        assertEquals(expected, actual, k);
+        assertEquals(expected, actual, k + "");
     }
 
     @Test
@@ -29,7 +28,23 @@ class FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsKTest {
         int k = 19;
         int expected = 3;
         int actual = new FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK().findMinFibonacciNumbers(k);
-        assertEquals(expected, actual, k);
+        assertEquals(expected, actual, k + "");
+    }
+
+    @Test
+    public void testCase4() {
+        int k = 701408733;
+        int expected = 1;
+        int actual = new FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK().findMinFibonacciNumbers(k);
+        assertEquals(expected, actual, k + "");
+    }
+
+    @Test
+    public void testCase5() {
+        int k = 1;
+        int expected = 1;
+        int actual = new FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK().findMinFibonacciNumbers(k);
+        assertEquals(expected, actual, k + "");
     }
 
 }
