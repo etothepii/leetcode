@@ -11,13 +11,18 @@ public class ValidParenthesisTesting {
                 open++;
             }
             else if (c == ')') {
-                open--;
+                if (open > 0) {
+                    open--;
+                }
+                else if (open_asterisk > 0) {
+                    open_asterisk--;
+                }
+                else {
+                    return false;
+                }
             }
             else if (c == '*') {
                 asterisk++;
-            }
-            if (open + open_asterisk < -asterisk) {
-                return false;
             }
             while (open < asterisk && asterisk > 0) {
                 asterisk--;
