@@ -20,10 +20,10 @@ public class FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK {
     }
 
     private int minimumSumFrom(int[] candidates, int k) {
-        return this.binPacking(candidates, k);
+        return binPacking(candidates, k);
     }
 
-    private int binPacking(int[] candidates, int k) {
+    public static int binPacking(int[] candidates, int k) {
         int used = 0;
         for (int i = candidates.length - 1; i >= 0 && k > 0; i--) {
             if (k >= candidates[i]) {
