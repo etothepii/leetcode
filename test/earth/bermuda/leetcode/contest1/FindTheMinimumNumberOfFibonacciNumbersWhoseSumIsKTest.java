@@ -78,14 +78,4 @@ class FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsKTest {
         assertEquals(expected, actual, k + "");
     }
 
-    @Test
-    public void test_100() {
-        for (int i = 0; i < 100; i++) {
-            int k = (int)(Math.random() * 1e4);
-            int expected = validate(k);
-            int actual = new FindTheMinimumNumberOfFibonacciNumbersWhoseSumIsK().findMinFibonacciNumbers(k);
-            assertEquals(expected, actual, k + "");
-        }
-    }
-
 }

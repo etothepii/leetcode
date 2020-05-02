@@ -201,7 +201,7 @@ class DiameterOfBinaryTreeTest {
         }
     }
 
-    @Test
+//    @Test
     public void can_profile_random_100_000() {
         DiameterOfBinaryTree solution = new DiameterOfBinaryTree();
         NiaveDiameterOfBinaryTree expectedSolution = new NiaveDiameterOfBinaryTree();
