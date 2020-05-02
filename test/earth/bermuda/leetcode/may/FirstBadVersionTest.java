@@ -10,7 +10,7 @@ public class FirstBadVersionTest {
     public void test_finds_fail_1() {
         int expected = 4;
         int tryVersion = 5;
-        FirstBadVersion firstBadVersion = new FirstBadVersion(expected);
+        FirstBadVersion firstBadVersion = new FirstBadVersion(expected, tryVersion);
         int actual = firstBadVersion.firstBadVersion(tryVersion);
         Assertions.assertEquals(expected, actual, String.format("%d, %d", expected, tryVersion));
     }
@@ -19,7 +19,7 @@ public class FirstBadVersionTest {
     public void test_finds_fail_2() {
         int expected = 5;
         int tryVersion = 1000_000;
-        FirstBadVersion firstBadVersion = new FirstBadVersion(expected);
+        FirstBadVersion firstBadVersion = new FirstBadVersion(expected, tryVersion);
         int actual = firstBadVersion.firstBadVersion(tryVersion);
         Assertions.assertEquals(expected, actual, String.format("%d, %d", expected, tryVersion));
     }
@@ -28,7 +28,7 @@ public class FirstBadVersionTest {
     public void test_finds_fail_3() {
         int expected = 1;
         int tryVersion = 2;
-        FirstBadVersion firstBadVersion = new FirstBadVersion(expected);
+        FirstBadVersion firstBadVersion = new FirstBadVersion(expected, tryVersion);
         int actual = firstBadVersion.firstBadVersion(tryVersion);
         Assertions.assertEquals(expected, actual, String.format("%d, %d", expected, tryVersion));
     }
@@ -37,7 +37,7 @@ public class FirstBadVersionTest {
     public void test_finds_fail_4() {
         int expected = 17;
         int tryVersion = 17;
-        FirstBadVersion firstBadVersion = new FirstBadVersion(expected);
+        FirstBadVersion firstBadVersion = new FirstBadVersion(expected, tryVersion);
         int actual = firstBadVersion.firstBadVersion(tryVersion);
         Assertions.assertEquals(expected, actual, String.format("%d, %d", expected, tryVersion));
     }
