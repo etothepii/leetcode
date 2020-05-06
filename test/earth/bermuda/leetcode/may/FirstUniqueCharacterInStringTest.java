@@ -66,6 +66,25 @@ class FirstUniqueCharacterInStringTest {
     }
 
     @Test
+    public void edgeCase1() {
+        int actual = new FirstUniqueCharacterInString().firstUniqChar("ieqyilcoprsixxuaxdvuvrjahatpaqlguzjftnxirxqrtnietclernbtxnbukdiqnpuqzfghjirvjtnhvftgsvymqpqejdzxgnyolpuixaopdopimgfvrexlrfqpqnwopzfcjnjeikagdgcqwyskdisirvlvkqljifyvgjsjgllkzwpkyyauqsdscfhcqrpotckenyvfqapcrdptkdhvaxysqqdrreejrdetoucewswuynxwkcdoaqvdzwcthosykloawxhneogetmyfzumlzxwlvcpnogsfachilebffmjraepocqeybkqmaletowxgyusbqrpvyjspuecovqmnlcpacemdunuxrvtdyukbqdhigseaszzjafmwaxjibtokyzqmivqjkilxl");
+        int expected = -1;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void edgeCase2() {
+        int actual = new FirstUniqueCharacterInString().firstUniqChar("spnneompzpykwtoptwpooznhzw" +
+                                                                         "bibnmpwzpbsjrvrzekiowdpwhz" +
+                                                                         "plvvvakqbaxbnwjxpvvaztnqii" +
+                                                                         "wqyplixersneahvisdimoefkir" +
+                                                                         "fxuwkpiihftlrovnyzitoemhtr" +
+                                                                         "gdvwvsskodvinrnmczztyubxinljxtdirw");
+        int expected = 130;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void run_100_000_times() {
         for (int i = 0; i < 100_000; i++) {
             StringBuilder sb = new StringBuilder();
